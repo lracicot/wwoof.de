@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+date_default_timezone_set('UTC');
+set_time_limit(0);
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Pimple\Container;
+
+$container = new Container();
+
+$container['db'] = function () {
+    $config = new \Doctrine\DBAL\Configuration();
+    $connectionParams = [
+        'url' => 'sqlite:///data.db',
+    ];
+    return \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+};
+
+$application = new Application();
+$application->addCommands([
+    new Command\Import($container),
+    new Command\CreateSchema($container),
+]);
+$application->run();

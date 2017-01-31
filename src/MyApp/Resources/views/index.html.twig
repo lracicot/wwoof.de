@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="page-header">
+  <h1>Liste des fermes</h1>
+  <div class="pull-right">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-bordered table-action">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Accepting request</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for s in farms %}
+      <tr>
+        <td id="farm-{{ s.wwoof_id }}"><a href="#farm-{{ s.wwoof_id }}">{{ s.title }}</a></td>
+        <td>{% if s.accepting %}Yes{% else %} No {% endif %}</td>
+        <td>{{ s.description | raw }}</td>
+        <td>
+          <a href="/refuse/{{ s.wwoof_id }}">Refuser</a><br><br><br>
+          <a href="/meh/{{ s.wwoof_id }}">Meh.</a><br><br><br>
+          <a href="/like/{{ s.wwoof_id }}">Like</a>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

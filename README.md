@@ -40,4 +40,4 @@ php bin/console app:create:schema
 Import the data
 ```
 php bin/console app:import
-``
+```
